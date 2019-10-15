@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const UserModel = require('../models/user');
 const mongoose = require('mongoose');
+const constant = require('../utils/constant');
 
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -19,7 +20,7 @@ router.post('/login', (req, res, next) => {
             if (err) {
                 res.send(err);
             }
-            const token = jwt.sign(user.toJSON() , 'jwt_secret');
+            const token = jwt.sign(user.toJSON() , constant.JWT_SECRET , { expiresIn: 60});
             return res.json({ user, token });
         });
     })(req, res);

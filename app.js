@@ -11,11 +11,12 @@ var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 
 var app = express();
+var constant = require('./utils/constant');
 app.use(passport.initialize());
 require('./utils/passport');
 
 
-mongoose.connect('mongodb+srv://dinhhai:uyH9XSU8uwxD4CbA@dhcluster-imuro.mongodb.net/Caro?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://dinhhai:' + constant.MONGO_PW + '@dhcluster-imuro.mongodb.net/Caro?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));

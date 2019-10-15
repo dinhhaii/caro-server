@@ -1,3 +1,4 @@
+const constant = require('../utils/constant');
 const passport = require('passport');
 const passportJWT = require("passport-jwt");
 const passportLocal = require('passport-local');
@@ -10,7 +11,7 @@ const UserModel = require('../models/user');
 
 const jwt = new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'jwt_secret'
+    secretOrKey: constant.JWT_SECRET
 },
     function (jwtPayload, cb) {
         return UserModel.findById(jwtPayload._id)
