@@ -1,5 +1,15 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Test
+  
+  h4 Register form (METHOD = POST, action = /user/register)
+  form(name="add-estimation", method="post", action="/user/register")
+    div.input
+        div.label Email
+        input(type="text", name="email")
+    div.input
+        div.label Password
+        input(type="text", name="password")
+    div.actions
+        input(type="submit", value="Register")

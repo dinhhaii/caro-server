@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const UserModel = require('../models/user');
+const mongoose = require('mongoose');
 
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', { session: false }, (err, user, info) => {
-        console.log(err);
+        // console.log(err);
         if (err || !user) {
             return res.status(400).json({
                 message: info ? info.message : 'Login failed',
@@ -19,7 +20,6 @@ router.post('/login', (req, res, next) => {
                 res.send(err);
             }
             const token = jwt.sign(user.toJSON() , 'jwt_secret');
-            console.log(token);
             return res.json({ user, token });
         });
     })(req, res);
@@ -41,6 +41,5 @@ router.post('/register', (req, res) => {
     .catch( err => console.log(err));
 
 })
-
 
 module.exports = router;
