@@ -1,15 +1,20 @@
 extends layout
 
 block content
-  h1 Test
-  
-  h4 Register form (METHOD = POST, action = /user/register)
+  h1 Test with POSTMAN
+  p Body form with key #[strong "email"] and #[strong "password"]
+  p #[strong LOGIN]: POST - #[strong /user/login] (#[u Expiration: 30s])
+  p #[strong REGISTER]: POST - #[strong /user/register]
+  p #[strong PROFILE]: GET - #[strong /me] (Expiration: 30s)
+
+  br
+  h2 Example Register Form (METHOD = POST, action = /user/register)
   form(name="add-estimation", method="post", action="/user/register")
     div.input
         div.label Email
         input(type="text", name="email")
     div.input
         div.label Password
-        input(type="text", name="password")
+        input(type="password", name="password")
     div.actions
         input(type="submit", value="Register")

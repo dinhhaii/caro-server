@@ -15,8 +15,7 @@ var constant = require('./utils/constant');
 app.use(passport.initialize());
 require('./utils/passport');
 
-
-mongoose.connect('mongodb+srv://dinhhai:' + constant.MONGO_PW + '@dhcluster-imuro.mongodb.net/Caro?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(constant.CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Rourter
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 // app.use('/auth', authRouter);
