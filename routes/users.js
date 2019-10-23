@@ -3,6 +3,7 @@ const router = express.Router();
 const UserModel = require('../models/user');
 const mongoose = require('mongoose');
 const constant = require('../utils/constant');
+const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
@@ -20,26 +21,42 @@ router.post('/login', (req, res, next) => {
             if (err) {
                 res.send(err);
             }
-            const token = jwt.sign(user.toJSON() , constant.JWT_SECRET , { expiresIn: '30s'});
-            return res.json({ user, token });
+            const token = jwt.sign(user.toJSON(), constant.JWT_SECRET, { expiresIn: '30s' });
+            return res.json({ token });
         });
     })(req, res);
 
 });
 
 router.post('/register', (req, res) => {
-  const user = new UserModel({
-    _id: new mongoose.Types.ObjectId(),
-    email: req.body.email,
-    password: req.body.password
-  })
-  
-  user.save()
-    .then( result => {
-      console.log(result);
-      res.send(result);
-    })
-    .catch( err => console.log(err));
+    var { username, name, gender, password } = req.body;
+
+    const saltRounds = 10;
+    bcrypt.hash(password, saltRounds)
+        .then(hash => {
+            const user = new UserModel({
+                _id: new mongoose.Types.ObjectId(),
+                username: username,
+                name: name,
+                gender: gender,
+                password: hash
+            })
+
+            user.save()
+                .then(result => {
+                    var {username, name, gender} = result;
+                    const data = {
+                        username: username,
+                        name: name,
+                        gender: gender
+                    }
+                    res.send(data);
+                })
+                .catch(err => console.log(err));
+        })
+        .catch(err => {
+            console.log(err);
+        })
 
 })
 

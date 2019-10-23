@@ -8,8 +8,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/me', passport.authenticate('jwt', {session: false}), function(req, res, next) {
-
-  res.json(req.user);
+  const data = {
+    username: req.user.username,
+    gender: req.user.gender, 
+    username: req.user.name
+  }
+  res.json(data);
 });
 
 module.exports = router;
