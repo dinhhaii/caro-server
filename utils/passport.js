@@ -38,7 +38,6 @@ const local = new LocalStrategy({
                 bcrypt.compare(password, user.password)
                     .then(result => {
                         if (result) {
-                            console.log(user);
                             return cb(null, user, { message: 'Logged In Successfully' });
                         } else {
                             return cb(null, false, { message: 'Incorrect password!' });

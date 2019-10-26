@@ -22,7 +22,13 @@ router.post('/login', (req, res, next) => {
                 res.send(err);
             }
             const token = jwt.sign(user.toJSON(), constant.JWT_SECRET, { expiresIn: '30s' });
-            return res.json({ token });
+            const data = { 
+                name: user.name,
+                username: user.username,
+                gender: user.gender,
+                token
+            };
+            return res.json(data);
         });
     })(req, res);
 
@@ -44,7 +50,7 @@ router.post('/register', (req, res) => {
 
             user.save()
                 .then(result => {
-                    var {username, name, gender} = result;
+                    var { username, name, gender } = result;
                     const data = {
                         username: username,
                         name: name,
@@ -57,6 +63,7 @@ router.post('/register', (req, res) => {
         .catch(err => {
             console.log(err);
         })
+
 
 })
 

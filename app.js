@@ -5,10 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var authRouter = require('./routes/auth');
 
 var app = express();
 var constant = require('./utils/constant');
@@ -26,10 +26,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 //Rourter
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+
 // app.use('/auth', authRouter);
 
 // Catch 404 and forward to error handler
