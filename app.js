@@ -6,12 +6,14 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var cors = require('cors');
+var cookieSession = require('cookie-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 var constant = require('./utils/constant');
+
 app.use(passport.initialize());
 require('./utils/passport');
 

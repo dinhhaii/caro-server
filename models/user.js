@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    id: {
+        type: String,
+        requrie: false
+    },
     username: {
         type: String,
         require: true
@@ -16,7 +20,11 @@ const userSchema = mongoose.Schema({
     },
     gender: {
         type: String,
-        require: true
+        require: false
+    },
+    picture: {
+        type: String,
+        require: false
     }
 });
 
