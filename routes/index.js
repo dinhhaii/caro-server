@@ -20,13 +20,12 @@ router.get('/me', passport.authenticate('jwt', {session: false}), function(req, 
 });
 
 router.get('/auth/facebook', function(req, res, next) {
-  console.log(req.query);
   const query = req.query;
   if (query.token) {
     const data = jwtExtension.decode(query.token, constant.JWT_SECRET);
     res.json(data);
   }
-  res.json({err: "Invalid token"});
+  res.json({message: "Invalid token"});
 });
 
 router.get('/logout', function(req, res, next) {

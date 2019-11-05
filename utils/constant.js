@@ -5,5 +5,6 @@ module.exports = {
     GOOGLE_CLIENT_SECRET: "kCRjmAZBTi5lpuvatPgzlux0",
     FACEBOOK_APP_ID: "546945696118747",
     FACEBOOK_APP_SECRET: "7b3c2fe57386fcbcf3b021a65176695b",
-    URL_CLIENT: "http://dinhhai-caro.herokuapp.com"
+    // URL_CLIENT: "http://localhost:3001"
+    URL_CLIENT: "https://dinhhai-caro.herokuapp.com"
 }
