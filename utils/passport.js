@@ -32,8 +32,8 @@ const facebook = new FacebookStrategy({
 },
     function (accessToken, refreshToken, profile, done) {
         const { emails, displayName, photos, gender } = profile;
-        console.log(profile);
-        UserModel.findOne({ username: emails[0].value })
+        // console.log(profile);
+        UserModel.findOne({ username: emails[0].value, type: "facebook" })
             .then(user => {
                 if(user) {
                     let _user = {
@@ -41,6 +41,7 @@ const facebook = new FacebookStrategy({
                         name: user.name,
                         picture: user.picture,
                         gender: user.gender,
+                        type: user.type
                     };
                     _user = {..._user, token: jwtExtension.encode(_user, constant.JWT_SECRET)}
                     // console.log(_user);
@@ -52,6 +53,7 @@ const facebook = new FacebookStrategy({
                         username: emails[0].value,
                         gender: gender,
                         name: displayName,
+                        type: "facebook",
                         picture: photos[0].value
                     })
 
@@ -61,6 +63,7 @@ const facebook = new FacebookStrategy({
                                 username: result.username,
                                 name: result.name,
                                 gender: result.gender,
+                                type: result.type,
                                 picture: result.picture,
                             };
                             _user = {..._user, token: jwtExtension.encode(_user, constant.JWT_SECRET)}
@@ -84,7 +87,7 @@ const google = new GoogleStrategy({
     function (accessToken, refreshToken, tokenInfo, profile, done) {
         // console.log(tokenInfo);
         const { emails, displayName, photos } = profile;
-        UserModel.findOne({ username: emails[0].value })
+        UserModel.findOne({ username: emails[0].value, type: "google" })
             .then(user => {
                 if(user) {
                     const _user = {
@@ -92,6 +95,7 @@ const google = new GoogleStrategy({
                         name: user.name,
                         gender: user.gender,
                         picture: user.picture,
+                        type: user.type,
                         token: tokenInfo.id_token
                     };
                     console.log(_user);
@@ -102,6 +106,7 @@ const google = new GoogleStrategy({
                         _id: new mongoose.Types.ObjectId(),
                         username: emails[0].value,
                         name: displayName,
+                        type: "google",
                         gender: "",
                         picture: photos[0].value
                     })
@@ -113,6 +118,7 @@ const google = new GoogleStrategy({
                                 name: result.name,
                                 gender: result.gender,
                                 picture: result.picture,
+                                type: result.type,
                                 token: tokenInfo.id_token
                             };
                             console.log(_user);
@@ -147,7 +153,7 @@ const local = new LocalStrategy({
     passwordField: 'password'
 },
     function (username, password, done) {
-        return UserModel.findOne({username})
+        return UserModel.findOne({username: username, type: "local"})
             .then(user => {
                 if (!user) {
                     return done(null, false, { message: 'Incorrect username!' });

@@ -14,7 +14,8 @@ router.get('/me', passport.authenticate('jwt', {session: false}), function(req, 
     username: req.user.username,
     gender: req.user.gender, 
     name: req.user.name,
-    picture: req.user.picture
+    picture: req.user.picture,
+    type: req.user.type
   }
   res.json(data);
 });

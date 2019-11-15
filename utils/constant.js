@@ -5,6 +5,10 @@ module.exports = {
     GOOGLE_CLIENT_SECRET: "kCRjmAZBTi5lpuvatPgzlux0",
     FACEBOOK_APP_ID: "546945696118747",
     FACEBOOK_APP_SECRET: "7b3c2fe57386fcbcf3b021a65176695b",
-    // URL_CLIENT: "http://localhost:3001"
-    URL_CLIENT: "https://dinhhai-caro.herokuapp.com"
+    // URL_CLIENT: "http://localhost:3001",
+    URL_CLIENT: "https://dinhhai-caro.herokuapp.com",
+    SOCKET_FIND_PARTNER: "SOCKET_FIND_PARTNER",
+    SOCKET_RESPONSE_PARTNER: "SOCKET_RESPONSE_PARTNER",
+    SOCKET_CHAT: "SOCKET_CHAT",
+    SOCKET_CARO_ONLINE: "SOCKET_CARO_ONLINE"
 }
